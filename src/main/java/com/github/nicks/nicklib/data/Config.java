@@ -26,6 +26,7 @@ public class Config implements VariableConfigImpl {
 
 
 
+
     /**
      * Creates a new Config object
      */
@@ -178,6 +179,22 @@ public class Config implements VariableConfigImpl {
         getConfig().set(path + ".z", location.getZ());
         getConfig().set(path + ".yaw", location.getYaw());
         getConfig().set(path + ".pitch", location.getPitch());
+        saveConfig();
+    }
+
+
+    public void setPos1(String path, Location location) {
+        getConfig().set(path + "." + location.getWorld().getName() + ".min.x", location.getX());
+        getConfig().set(path + "." + location.getWorld().getName() + ".min.y", location.getY());
+        getConfig().set(path + "." + location.getWorld().getName() + ".min.z", location.getZ());
+        saveConfig();
+    }
+
+
+    public void setPos2(String path, Location location) {
+        getConfig().set(path + "." + location.getWorld().getName() + ".max.x", location.getX());
+        getConfig().set(path + "." + location.getWorld().getName() + ".max.y", location.getY());
+        getConfig().set(path + "." + location.getWorld().getName() + ".max.z", location.getZ());
         saveConfig();
     }
 
