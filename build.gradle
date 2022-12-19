@@ -18,7 +18,3 @@ dependencies {
     // SPIGOT API
     compileOnly "org.bukkit.spigotmc:spigot-api:1.19.2-R0.1"
 }
-
-jar {
-    destinationDirectory.set(file('C:\\Users\\Yangd\\OneDrive\\바탕 화면')) // Build Section
-}

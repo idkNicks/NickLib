@@ -1,6 +1,7 @@
-package com.github.nicks.nicklib.data;
+package com.github.nicks.nicklib.data.location;
 
 
+import com.github.nicks.nicklib.data.Config;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 

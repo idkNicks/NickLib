@@ -183,6 +183,11 @@ public class Config implements VariableConfigImpl {
     }
 
 
+    /**
+     * Set pos1 location
+     * @param path region
+     * @param location location
+     */
     public void setPos1(String path, Location location) {
         getConfig().set(path + "." + location.getWorld().getName() + ".min.x", location.getX());
         getConfig().set(path + "." + location.getWorld().getName() + ".min.y", location.getY());
@@ -191,10 +196,41 @@ public class Config implements VariableConfigImpl {
     }
 
 
+    /**
+     * Set pos2 location
+     * @param path region
+     * @param location location
+     */
     public void setPos2(String path, Location location) {
         getConfig().set(path + "." + location.getWorld().getName() + ".max.x", location.getX());
         getConfig().set(path + "." + location.getWorld().getName() + ".max.y", location.getY());
         getConfig().set(path + "." + location.getWorld().getName() + ".max.z", location.getZ());
+        saveConfig();
+    }
+
+
+    /**
+     * Gets the pos1 Location
+     * @param path region
+     * @param location location
+     */
+    public void getPos1(String path, Location location) {
+        getConfig().get(path + "." + location.getWorld().getName() + ".min.x");
+        getConfig().get(path + "." + location.getWorld().getName() + ".min.y");
+        getConfig().get(path + "." + location.getWorld().getName() + ".min.z");
+        saveConfig();
+    }
+
+
+    /**
+     * Gets the pos2 Location
+     * @param path region
+     * @param location location
+     */
+    public void getPos2(String path, Location location) {
+        getConfig().get(path + "." + location.getWorld().getName() + ".max.x");
+        getConfig().get(path + "." + location.getWorld().getName() + ".max.y");
+        getConfig().get(path + "." + location.getWorld().getName() + ".max.z");
         saveConfig();
     }
 
