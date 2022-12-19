@@ -25,8 +25,6 @@ public class Config implements VariableConfigImpl {
     private final JavaPlugin plugin;
 
 
-
-
     /**
      * Creates a new Config object
      */
@@ -86,7 +84,6 @@ public class Config implements VariableConfigImpl {
     }
 
 
-
     /**
      * Creates a new Directory
      */
@@ -119,7 +116,7 @@ public class Config implements VariableConfigImpl {
         if (deleteFolder.exists()) {
             File[] deleteFolderList = deleteFolder.listFiles();
 
-            for(int i = 0; i < deleteFolderList.length; ++i) {
+            for (int i = 0; i < deleteFolderList.length; ++i) {
                 if (deleteFolderList[i].isFile()) {
                     deleteFolderList[i].delete();
                 } else {
@@ -185,20 +182,20 @@ public class Config implements VariableConfigImpl {
 
     /**
      * Set pos1 location
-     * @param path region
+     *
+     * @param path     region
      * @param location location
      */
     public void setPos1(String path, Location location) {
-        getConfig().set(path + "." + location.getWorld().getName() + ".min.x", location.getX());
-        getConfig().set(path + "." + location.getWorld().getName() + ".min.y", location.getY());
-        getConfig().set(path + "." + location.getWorld().getName() + ".min.z", location.getZ());
+        getConfig().set(path + ".pos1.world", location.getWorld().getName());
         saveConfig();
     }
 
 
     /**
      * Set pos2 location
-     * @param path region
+     *
+     * @param path     region
      * @param location location
      */
     public void setPos2(String path, Location location) {
@@ -211,7 +208,8 @@ public class Config implements VariableConfigImpl {
 
     /**
      * Gets the pos1 Location
-     * @param path region
+     *
+     * @param path     region
      * @param location location
      */
     public void getPos1(String path, Location location) {
@@ -224,7 +222,8 @@ public class Config implements VariableConfigImpl {
 
     /**
      * Gets the pos2 Location
-     * @param path region
+     *
+     * @param path     region
      * @param location location
      */
     public void getPos2(String path, Location location) {
@@ -233,7 +232,6 @@ public class Config implements VariableConfigImpl {
         getConfig().get(path + "." + location.getWorld().getName() + ".max.z");
         saveConfig();
     }
-
 
 
     @Override

@@ -4,6 +4,7 @@ package com.github.nicks.nicklib.data.location;
 import com.github.nicks.nicklib.data.Config;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 
@@ -29,18 +30,35 @@ public class Region {
         this.pos2 = pos2;
     }
 
-    public void saveRegion(String path) {
-        config = new Config("region/" + name);
-        config.setString(path + ".world", getPos1().getWorld().getName());
 
-        config.setInt(path + ".pos1.x", getPos1().getBlockX());
-        config.setInt(path + ".pos1.y", getPos1().getBlockY());
-        config.setInt(path + ".pos1.z", getPos1().getBlockZ());
+    public void saveRegion(String path, Location pos1, Location pos2) {
+        config = new Config("region/" + path);
+        config.setString(path + ".world", pos2.getWorld().getName());
 
-        config.setInt(path + ".pos2.x", getPos2().getBlockX());
-        config.setInt(path + ".pos2.y", getPos2().getBlockY());
-        config.setInt(path + ".pos2.z", getPos2().getBlockZ());
+        config.setInt(path + ".min.x", pos1.getBlockX());
+        config.setInt(path + ".min.y", pos1.getBlockY());
+        config.setInt(path + ".min.z", pos1.getBlockZ());
+
+        config.setInt(path + ".max.x", pos2.getBlockX());
+        config.setInt(path + ".max.y", pos2.getBlockY());
+        config.setInt(path + ".max.z", pos2.getBlockZ());
+        config.saveConfig();
     }
+
+
+    public int squareSize(Vector pos1, Vector pos2) {
+        Vector min = Vector.getMinimum(pos1, pos2);
+        Vector max = Vector.getMaximum(pos1, pos2);
+        Vector res = max.subtract(min);
+
+        res.setX(Math.abs(res.getX()));
+        res.setY(Math.abs(res.getY()));
+        res.setZ(Math.abs(res.getZ()));
+        res.add(new Vector(1, 1, 1));
+        return res.getBlockX() * res.getBlockY() * res.getBlockZ();
+    }
+
+
 
 
     public Location getPos1() {
