@@ -67,7 +67,7 @@ config.saveConfig();
 config.reloadConfig();
 
 // 콘피그 파일을 삭제합니다.
-config.delteFile();
+config.deleteFile();
 
 // 콘피그가 존재하는지 체크합니다.
 if(config.isFileExist()) {}
