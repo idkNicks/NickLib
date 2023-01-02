@@ -1,0 +1,7 @@
+name: NickLib
+main: com.github.nicklib.NickLib
+author: idkNicks
+description: A library for Nick plugins
+
+version: 1.0.0
+api-version: 1.13

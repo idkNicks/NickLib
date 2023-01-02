@@ -1,12 +1,12 @@
-package com.github.nicks.nicklib.utils;
+package com.github.nicklib.data.utils;
 
 @SuppressWarnings("unused")
 public class Triple<A, B, C> {
+
     public A a;
-
     public B b;
-
     public C c;
+
 
     public Triple(final A a, final B b, final C c) {
         this.a = a;

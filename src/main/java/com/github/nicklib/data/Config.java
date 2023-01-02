@@ -1,7 +1,6 @@
-package com.github.nicks.nicklib.data;
+package com.github.nicklib.data;
 
-import com.github.nicks.nicklib.data.impl.VariableConfigImpl;
-import org.bukkit.Location;
+import com.github.nicklib.data.impl.VariableConfigImpl;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -27,10 +26,28 @@ public class Config implements VariableConfigImpl {
 
     /**
      * Creates a new Config object
+     *
+     * @param name   The name of the config file
+     *               (without the .yml extension)
+     *               (if the file is in a folder, use / to separate the folders)
+     *               (example: "config" or "folder/config")
+     *               (example: "config.yml" or "folder/config.yml" will not work)
+     *               (example: "folder/config" or "folder/folder/config" will work)
+     * @param plugin The plugin that the config is in
      */
-    public Config(String name) {
+    public Config(String name, JavaPlugin plugin) {
         this.name = name;
-        this.plugin = JavaPlugin.getProvidingPlugin(getClass());
+        this.plugin = plugin;
+    }
+
+
+    /**
+     * Configuration setSection
+     *
+     * @param section The section of the config
+     */
+    public void setSection(ConfigurationSection section) {
+        this.section = section;
     }
 
 
@@ -102,7 +119,7 @@ public class Config implements VariableConfigImpl {
     /**
      * delete the config
      */
-    public boolean delete() {
+    public boolean deleteFile() {
         this.file = new File(plugin.getDataFolder(), name + ".yml");
         return this.file.delete();
     }
@@ -127,6 +144,19 @@ public class Config implements VariableConfigImpl {
             }
             deleteFolder.delete();
         }
+    }
+
+
+    /**
+     * Config file rename
+     *
+     * @param name The name of the config file
+     */
+    public void renameFile(String name) {
+        this.file = new File(plugin.getDataFolder(), this.name + ".yml");
+        File file = new File(plugin.getDataFolder(), name + ".yml");
+
+        this.file.renameTo(file);
     }
 
 
@@ -167,70 +197,13 @@ public class Config implements VariableConfigImpl {
 
 
     /**
-     * Specifies the location.
-     */
-    public void setLocation(String path, Location location) {
-        getConfig().set(path + ".world", location.getWorld().getName());
-        getConfig().set(path + ".x", location.getX());
-        getConfig().set(path + ".y", location.getY());
-        getConfig().set(path + ".z", location.getZ());
-        getConfig().set(path + ".yaw", location.getYaw());
-        getConfig().set(path + ".pitch", location.getPitch());
-        saveConfig();
-    }
-
-
-    /**
-     * Set pos1 location
+     * Gets the ConfigurationSection
      *
-     * @param path     region
-     * @param location location
+     * @param path
+     * @return ConfigurationSection
      */
-    public void setPos1(String path, Location location) {
-        getConfig().set(path + ".pos1.world", location.getWorld().getName());
-        saveConfig();
-    }
-
-
-    /**
-     * Set pos2 location
-     *
-     * @param path     region
-     * @param location location
-     */
-    public void setPos2(String path, Location location) {
-        getConfig().set(path + "." + location.getWorld().getName() + ".max.x", location.getX());
-        getConfig().set(path + "." + location.getWorld().getName() + ".max.y", location.getY());
-        getConfig().set(path + "." + location.getWorld().getName() + ".max.z", location.getZ());
-        saveConfig();
-    }
-
-
-    /**
-     * Gets the pos1 Location
-     *
-     * @param path     region
-     * @param location location
-     */
-    public void getPos1(String path, Location location) {
-        getConfig().get(path + "." + location.getWorld().getName() + ".min.x");
-        getConfig().get(path + "." + location.getWorld().getName() + ".min.y");
-        getConfig().get(path + "." + location.getWorld().getName() + ".min.z");
-        saveConfig();
-    }
-
-
-    /**
-     * Gets the pos2 Location
-     *
-     * @param path     region
-     * @param location location
-     */
-    public void getPos2(String path, Location location) {
-        getConfig().get(path + "." + location.getWorld().getName() + ".max.x");
-        getConfig().get(path + "." + location.getWorld().getName() + ".max.y");
-        getConfig().get(path + "." + location.getWorld().getName() + ".max.z");
-        saveConfig();
+    public ConfigurationSection getConfigurationSection(String path) {
+        return getConfig().getConfigurationSection(path);
     }
 
 
@@ -289,13 +262,19 @@ public class Config implements VariableConfigImpl {
     }
 
     @Override
-    public void setStringList(String path, String[] value) {
+    public void setObject(String path, Object value) {
         getConfig().set(path, value);
         saveConfig();
     }
 
     @Override
-    public void Object(String path, Object value) {
+    public void setObjectList(String path, List<Object> value) {
+        getConfig().set(path, value);
+        saveConfig();
+    }
+
+    @Override
+    public void setStringList(String path, List<String> value) {
         getConfig().set(path, value);
         saveConfig();
     }
@@ -347,12 +326,17 @@ public class Config implements VariableConfigImpl {
     }
 
     @Override
-    public String[] getStringList(String path) {
-        return this.getConfig().getStringList(path).toArray(new String[0]);
+    public Object getObject(String path) {
+        return this.getConfig().get(path);
     }
 
     @Override
-    public Object getObject(String path) {
-        return this.getConfig().get(path);
+    public List<String> getStringList(String path) {
+        return this.getConfig().getStringList(path);
+    }
+
+    @Override
+    public List<Object> getObjectList(String path) {
+        return (List<Object>) this.getConfig().getList(path);
     }
 }

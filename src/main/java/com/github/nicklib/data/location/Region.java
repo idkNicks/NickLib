@@ -1,13 +1,14 @@
-package com.github.nicks.nicklib.data.location;
+package com.github.nicklib.data.location;
 
 
-import com.github.nicks.nicklib.data.Config;
+import com.github.nicklib.data.Config;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 
+@SuppressWarnings("all")
 public class Region {
 
     private HashMap<Player, Region> region = new HashMap<>();
@@ -32,7 +33,7 @@ public class Region {
 
 
     public void saveRegion(String path, Location pos1, Location pos2) {
-        config = new Config("region/" + path);
+        config = new Config("region/" + path, null);
         config.setString(path + ".world", pos2.getWorld().getName());
 
         config.setInt(path + ".min.x", pos1.getBlockX());
@@ -57,7 +58,6 @@ public class Region {
         res.add(new Vector(1, 1, 1));
         return res.getBlockX() * res.getBlockY() * res.getBlockZ();
     }
-
 
 
 

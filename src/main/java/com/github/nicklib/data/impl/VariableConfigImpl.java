@@ -1,5 +1,8 @@
-package com.github.nicks.nicklib.data.impl;
+package com.github.nicklib.data.impl;
 
+import java.util.List;
+
+@SuppressWarnings("all")
 public interface VariableConfigImpl {
 
     void setString(String path, String value);
@@ -20,10 +23,11 @@ public interface VariableConfigImpl {
 
     void setDouble(String path, double value);
 
-    void setStringList(String path, String[] value);
+    void setObject(String path, Object value);
 
-    void Object(String path, Object value);
+    void setObjectList(String path, List<Object> value);
 
+    void setStringList(String path, List<String> value);
 
 
     String getString(String path);
@@ -44,8 +48,9 @@ public interface VariableConfigImpl {
 
     double getDouble(String path);
 
-    String[] getStringList(String path);
-
     Object getObject(String path);
 
+    List<String> getStringList(String path);
+
+    List<Object> getObjectList(String path);
 }

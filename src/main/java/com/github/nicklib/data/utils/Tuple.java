@@ -1,4 +1,4 @@
-package com.github.nicks.nicklib.utils;
+package com.github.nicklib.data.utils;
 
 @SuppressWarnings("unused")
 public class Tuple<A, B> {
