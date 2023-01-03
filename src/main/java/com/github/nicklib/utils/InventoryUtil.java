@@ -62,11 +62,54 @@ public class InventoryUtil {
     }
 
 
+    public void saveInventory(String section, Inventory inv) {
+
+        List<ItemStack> itemStacks = new ArrayList<>();
+        ConfigurationSection configurationSection = this.config.getConfig().createSection(section + ".items");
+
+        if (inv.isEmpty()) {
+            configurationSection.set("items", null);
+            this.config.saveConfig();
+            return;
+        }
+
+        for (int i = 0; i < inv.getSize(); i++) {
+            ItemStack item = inv.getItem(i);
+
+            if (item != null) {
+                itemStacks.add(item);
+                configurationSection.set(String.valueOf(i), item);
+                this.config.saveConfig();
+            }
+        }
+    }
+
+
     /**
      * get the inventory from the config
      * @param inventoryTitle inventory title
      * @param size inventory size * 9 [1~6]
      * @param section ConfigurationSection path
+     */
+    public void getInventory(String section, String inventoryTitle, Integer size, Player player) {
+        Inventory inv = Bukkit.createInventory(null, size * 9, inventoryTitle);
+
+        ConfigurationSection configurationSection = this.config.getConfig().getConfigurationSection(section + ".items");
+
+        if (section != null) {
+            for (String key : configurationSection.getKeys(false)) {
+                inv.setItem(Integer.parseInt(key), configurationSection.getItemStack(key));
+            }
+        }
+        this.player.openInventory(inv);
+    }
+
+
+    /**
+     * get the inventory from the config
+     * @param section ConfigurationSection path
+     * @param inventoryTitle inventory title
+     * @param size inventory size * 9 [1~6]
      */
     public void getInventory(String section, String inventoryTitle, Integer size) {
         Inventory inv = Bukkit.createInventory(null, size * 9, inventoryTitle);
@@ -78,7 +121,6 @@ public class InventoryUtil {
                 inv.setItem(Integer.parseInt(key), configurationSection.getItemStack(key));
             }
         }
-        this.player.openInventory(inv);
     }
 
 

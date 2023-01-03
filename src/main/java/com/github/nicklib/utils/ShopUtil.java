@@ -12,7 +12,6 @@ public class ShopUtil {
 
 
     public ShopUtil() {
-
     }
 
 
@@ -33,7 +32,7 @@ public class ShopUtil {
     public void createShop() {
         config.getConfig().set(shop + ".title", shop);
         config.getConfig().set(shop + ".size", 6);
-        config.getConfig().set(shop + ".item", new HashMap<>());
+        config.getConfig().set(shop + ".items", new HashMap<>());
         config.saveConfig();
     }
 
@@ -48,7 +47,6 @@ public class ShopUtil {
 
     /**
      * Check if Shop file exists
-     *
      * @return true if exists
      */
     public Boolean isShopExist() {
