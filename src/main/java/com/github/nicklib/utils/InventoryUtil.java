@@ -4,10 +4,8 @@ import com.github.nicklib.data.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,36 +28,6 @@ public class InventoryUtil {
         this.config = config;
     }
 
-
-    /**
-     * save the inventory to the config
-     * @param section ConfigurationSection path
-     * @param event InventoryCloseEvent
-     * @param inv Inventory
-     */
-    public void saveInventory(String section, @NotNull InventoryCloseEvent event, Inventory inv) {
-
-        inv = event.getInventory();
-
-            List<ItemStack> itemStacks = new ArrayList<>();
-            ConfigurationSection configurationSection = this.config.getConfig().createSection(section + ".items");
-
-            if (event.getInventory().isEmpty()) {
-                configurationSection.set("items", null);
-                this.config.saveConfig();
-                return;
-            }
-
-            for (int i = 0; i < inv.getSize(); i++) {
-                ItemStack item = inv.getItem(i);
-
-                if (item != null) {
-                    itemStacks.add(item);
-                    configurationSection.set(String.valueOf(i), item);
-                    this.config.saveConfig();
-                }
-        }
-    }
 
 
     public void saveInventory(String section, Inventory inv) {
