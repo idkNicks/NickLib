@@ -5,6 +5,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -176,6 +177,24 @@ public class Config implements VariableConfigImpl {
         }
         return newArray;
     }
+
+
+    /**
+     * Copy the config file
+     * @param newPath The path of the new file
+     * @return The new file
+     */
+    public Boolean copyFile(String newPath) {
+        if(this.file == null || this.config == null) return false;
+
+        File newFile = new File(plugin.getDataFolder(), newPath);
+
+        FileUtil.copy(file, newFile);
+        plugin.saveResource(newFile.getPath(), false);
+
+        return FileUtil.copy(file, newFile);
+    }
+
 
 
     /**
