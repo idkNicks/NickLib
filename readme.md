@@ -15,7 +15,6 @@
 <hr>
 
 ## ⚙️ 개발 환경 ⚙️
-- 💡 NickLib을 사용하기 위해선 NickLib 플러그인을 같이 넣어주셔야 합니다.
 - 📡 JDK(Java Development Kit) 17
 - 🧭 SPIGOT 1.19.2
 - 📩 버그 문의: 대영#1234
