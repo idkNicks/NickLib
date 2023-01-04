@@ -6,6 +6,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,8 +30,7 @@ public class InventoryUtil {
     }
 
 
-
-    public void saveInventory(String section, Inventory inv) {
+    public void saveInventory(String section, @NotNull Inventory inv) {
 
         List<ItemStack> itemStacks = new ArrayList<>();
         ConfigurationSection configurationSection = this.config.getConfig().createSection(section + ".items");
