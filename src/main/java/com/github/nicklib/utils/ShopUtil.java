@@ -225,6 +225,17 @@ public class ShopUtil {
     }
 
 
+
+    public void setItemPrice(String section, String priceType, Integer slot, Integer price) {
+        ConfigurationSection configurationSection = config.getConfig().getConfigurationSection(section + ".items");
+        ConfigurationSection itemSection = configurationSection.getConfigurationSection(String.valueOf(slot));
+
+        itemSection.set("price." + priceType, price);
+        config.saveConfig();
+    }
+
+
+
     /**
      * is the Shop Buy Price Already Set
      *

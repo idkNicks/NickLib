@@ -11,14 +11,22 @@ repositories {
         url = "http://idkNicks.xyz:8081/repository/maven-public/"
         allowInsecureProtocol = true
     }
+    maven { url "https://repo.dmulloy2.net/repository/public/" }
+
 }
 
 dependencies {
-    implementation 'org.jetbrains:annotations:23.0.0'
 
+    // DEPENDENCIES
+    implementation 'org.jetbrains:annotations:23.0.0'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
     // SPIGOT API
     compileOnly "org.bukkit.spigotmc:spigot-api:1.19.2-R0.1"
+
+    // OTHERS API
+    compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.7.0";
 }
 
 jar {
