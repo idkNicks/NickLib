@@ -16,8 +16,10 @@ public class NickLib extends JavaPlugin {
 
     public void init() {
 
-        // SIGN GUI API
-        this.signGUIAPI = new SignGUIApi(JavaPlugin.getProvidingPlugin(NickLib.class));
 
+        if(!(getServer().getPluginManager().getPlugin("ProtocolLib") == null)) {
+            this.signGUIAPI = new SignGUIApi(JavaPlugin.getProvidingPlugin(NickLib.class));
+            return;
+        }
     }
 }

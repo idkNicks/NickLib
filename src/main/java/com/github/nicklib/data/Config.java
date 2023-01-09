@@ -1,6 +1,8 @@
 package com.github.nicklib.data;
 
 import com.github.nicklib.data.impl.VariableConfigImpl;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -181,11 +183,12 @@ public class Config implements VariableConfigImpl {
 
     /**
      * Copy the config file
+     *
      * @param newPath The path of the new file
      * @return The new file
      */
     public Boolean copyFile(String newPath) {
-        if(this.file == null || this.config == null) return false;
+        if (this.file == null || this.config == null) return false;
 
         File newFile = new File(plugin.getDataFolder(), newPath);
 
@@ -195,6 +198,36 @@ public class Config implements VariableConfigImpl {
         return FileUtil.copy(file, newFile);
     }
 
+
+    /**
+     * Save Location
+     *
+     * @param path  name
+     * @param value location
+     */
+    public void saveLocation(String path, Location value) {
+        getConfig().set(path + ".world", value.getWorld().getName());
+        getConfig().set(path + ".x", value.getX());
+        getConfig().set(path + ".y", value.getY());
+        getConfig().set(path + ".z", value.getZ());
+        getConfig().set(path + ".yaw", value.getYaw());
+        getConfig().set(path + ".pitch", value.getPitch());
+        saveConfig();
+    }
+
+
+    /**
+     * Get Location
+     *
+     * @param path name
+     */
+    public Location getLocation(String path) {
+        if (getConfig().get(path) != null) {
+            return new Location(Bukkit.getWorld(getString(path + ".world")),
+                    getDouble(path + ".x"), getDouble(path + ".y"), getDouble(path + ".z"), getFloat(path + ".yaw"), getFloat(path + ".pitch"));
+        }
+        return null;
+    }
 
 
     /**

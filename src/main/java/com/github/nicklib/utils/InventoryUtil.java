@@ -8,12 +8,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-@SuppressWarnings("all")
 public class InventoryUtil {
 
     private Player player;
@@ -55,12 +51,10 @@ public class InventoryUtil {
 
     /**
      * get the inventory from the config
-     * @param inventoryTitle inventory title
-     * @param size inventory size * 9 [1~6]
      * @param section ConfigurationSection path
      */
-    public void getInventory(String section, String inventoryTitle, Integer size, Player player) {
-        Inventory inv = Bukkit.createInventory(null, size * 9, inventoryTitle);
+    @Deprecated
+    public void getInventory(Inventory inv, String section) {
 
         ConfigurationSection configurationSection = this.config.getConfig().getConfigurationSection(section + ".items");
 
@@ -73,11 +67,13 @@ public class InventoryUtil {
     }
 
 
+
     /**
      * get the inventory from the config
-     * @param section ConfigurationSection path
+     *
+     * @param section        ConfigurationSection path
      * @param inventoryTitle inventory title
-     * @param size inventory size * 9 [1~6]
+     * @param size           inventory size * 9 [1~6]
      */
     public void getInventory(String section, String inventoryTitle, Integer size) {
         Inventory inv = Bukkit.createInventory(null, size * 9, inventoryTitle);
@@ -94,6 +90,7 @@ public class InventoryUtil {
 
     /**
      * get the inventory item
+     *
      * @param section ConfigurationSection path
      */
     public void getInventoryItem(String section) {
@@ -107,13 +104,14 @@ public class InventoryUtil {
 
     /**
      * is the inventory Full
+     *
      * @param section ConfigurationSection path
      * @return boolean
      */
     public Boolean isInventoryFull(String section, Integer size) {
         ConfigurationSection configurationSection = this.config.getConfig().getConfigurationSection(section + ".items");
 
-        if(!(configurationSection.getKeys(false).size() > size * 9 - Arrays.stream(player.getInventory().getStorageContents()).filter(Objects::nonNull).count())) {
+        if (!(configurationSection.getKeys(false).size() > size * 9 - Arrays.stream(player.getInventory().getStorageContents()).filter(Objects::nonNull).count())) {
             return false;
         }
         return true;
